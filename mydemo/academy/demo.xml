@@ -1,0 +1,15 @@
+<openerp>
+  <data>
+    <record id="padilla" model="academy.teachers">
+        <field name="name">teddy</field>
+    </record>
+
+    <record id="carroll" model="academy.teachers">
+       <field name="name">angle</field>
+    </record>
+
+    <record id="vaughn" model="academy.teachers">
+        <field name="name">god Vaughn</field>
+    </record>
+  </data>
+</openerp>>
