@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+         <record id="view_partner_form_ref" model="ir.ui.view">
+            <field name="name">res.partner.form.ref</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/div/h1/field[@name='name']" position="after">
+                     <div class="oe_left" style="width:500px;">
+                        <div class="oe_left" style="width:50px;margin-left:0px;margin-top:5px;">
+                            <label string="简称:"/>
+                            <field name="sort_name" placeholder="例如: APPLE"/>
+                        </div>
+                        <!--<div class="oe_left" style="width:265px;margin-left:-20px;">-->
+                            <!--<field name="sort_name" placeholder="例如: APPLE"/>-->
+                        <!--</div>-->
+                    </div>
+                </xpath>
+                  <!--添加对账单信息按钮-->
+                <!--<xpath expr="//div[@name='buttons']" position="inside">-->
+                    <!--<button class="oe_inline oe_stat_button" type="object" name="action_partner_account_state1"-->
+                        <!--attrs="{'invisible': [('customer', '=', False)]}"-->
+                        <!--icon="fa-list">-->
+                        <!--<field string="对账单" name="partner_account_count" widget="statinfo"/>-->
+                    <!--</button>-->
+                     <!--<button class="oe_inline oe_stat_button" type="object" name="action_custorm_state"-->
+                        <!--icon="fa-list">-->
+                          <!--&lt;!&ndash;attrs="{'invisible': [('customer', '=', False)]}"&ndash;&gt;-->
+                        <!--<field string="产品信息" name="cust_product_info" widget="statinfo"/>-->
+                    <!--</button>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//form[@string='Partners']/sheet/notebook/page[@name='sales_purchases']/group/group/field[@name='user_id']" position="after">-->
+                     <!--<field name="initial_amount"/>-->
+                     <!--<field name="send_type"/>-->
+                     <!--<field name="packing_type"/>-->
+                     <!--<field name="custom_type"/>-->
+                <!--</xpath>-->
+
+                 <!--客户创建联系人，是可以选择联系人是否是客户-->
+                 <!--<xpath expr="//form/sheet/notebook/page[@string='Contacts']/field[@name='child_ids']/form[@string='Contact'] /sheet/field[@name='customer']" position="replace">-->
+                    <!--<group>-->
+                     <!--<field name="customer" string="客户"/>-->
+                    <!--</group>-->
+                <!--</xpath>-->
+                 <!--<xpath expr="//form/sheet/notebook/page[@string='Contacts']/field[@name='child_ids']/form[@string='Contact'] /sheet/field[@name='supplier']" position="replace">-->
+                  <!--<group>-->
+                     <!--<field name="supplier"  string="供应商"/>-->
+                  <!--</group>-->
+                <!--</xpath>-->
+
+
+            </field>
+        </record>
+
+
+         <!--<record id="view_partner_tree_ref" model="ir.ui.view">-->
+            <!--<field name="name">res.partner.tree.ref</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="inherit_id" ref="base.view_partner_tree"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//tree/field[@name='phone']" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//tree/field[@name='email']" position="after">-->
+                    <!--<field name="phone"  />-->
+                    <!--<field name="name"  />-->
+                    <!--<field name="short_name"  />-->
+                <!--</xpath>-->
+                 <!--<xpath expr="//tree/field[@name='display_name']" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//tree/field[@name='function']" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+            <!--&lt;!&ndash;</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;</record>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<record id="res_partner_kanban_view" model="ir.ui.view">&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="name">res.partner.kanban.inherit</field>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="model">res.partner</field>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="inherit_id" ref="base.res_partner_kanban_view"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="arch" type="xml">&ndash;&gt;-->
+                <!--&lt;!&ndash;<xpath expr="//div[@class='oe_kanban_details']/h4[@class='oe_partner_heading']/a/field[@name='display_name']"&ndash;&gt;-->
+                       <!--&lt;!&ndash;position="after">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="short_name"></field>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                <!--&lt;!&ndash;<xpath expr="//div[@class='oe_kanban_details']/h4[@class='oe_partner_heading']/a/field[@name='display_name']"&ndash;&gt;-->
+                       <!--&lt;!&ndash;position="attributes">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<attribute name="invisible">1</attribute>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                <!--&lt;!&ndash;<xpath expr="//div[@class='oe_kanban_details']/ul/li[@t-if='record.email.raw_value']/a/field[@name='email']"&ndash;&gt;-->
+                       <!--&lt;!&ndash;position="attributes">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<attribute name="invisible">1</attribute>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+
+        <!--<record id="view_res_partner_filter_ref" model="ir.ui.view">-->
+            <!--<field name="name">res.partner.select.ref</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="inherit_id" ref="base.view_res_partner_filter"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//search/field[@name='name']" position="after">-->
+                    <!--<field name="name"  />-->
+                    <!--<field name="short_name" />-->
+                <!--</xpath>-->
+                  <!--<xpath expr="//search/field[@name='name']" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>
