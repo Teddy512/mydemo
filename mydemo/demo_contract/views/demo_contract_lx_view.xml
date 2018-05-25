@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Tree view 合同和立项共同的列表视图-->
+      <record id="view_demo_contract_lx_tree" model="ir.ui.view">
+        <field name="name">demo.contract.lx.tree</field>
+        <field name="model">demo.contract.lx</field>
+        <field name="arch" type="xml">
+            <tree string="demo contract lx">
+                <field name="name"/>
+                <!--<field name="pro_name" />-->
+                <!--<field name="lx_type" string="立项类别"/>-->
+                <!--<field name="amount"/>-->
+                <!--<field name="lx_datetime"/>-->
+                <field name="display_name"/>
+                <!--<field name="df_util"/>-->
+                <!--<field name="state"/>-->
+            </tree>
+        </field>
+      </record>
+       <!--form视图-->
+      <record id="view_demo_contract_lx_form" model="ir.ui.view">
+        <field name="name">demo.contract.lx.form</field>
+        <field name="model">demo.contract.lx</field>
+        <field name="arch" type="xml">
+            <form >
+                <!--<header>-->
+                    <!--<button name="action_split_order" string="确认" type="object" states="draft"/>-->
+                    <!--<button name="action_cancel_order" string="取消" type="object" states="confirm"/>-->
+                    <!--<button name="action_view_sigining_contract" string="创立合同" type="object"  states="confirm"/>-->
+                    <!--<field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>-->
+                <!--</header>-->
+                <sheet>
+                    <!--<div class="oe_right oe_button_box" name="buttons">-->
+                        <!--<button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_lx_order" type="object">-->
+                            <!--<field string="合同单" name="lx_order_count" widget="statinfo" />-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <h1>
+                    <label string="立项" />
+                    <field name="name" class="oe_inline" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                          <!--<field name="lx_type" string="立项类别"/>-->
+                          <!--<field name="lx_datetime"/>-->
+                          <!--<field name="pro_name" />-->
+                          <!--<field name="payamount"/>-->
+                          <!--<field name="company_id" invisible="1"/>-->
+                        </group>
+                        <group>
+                          <field name="display_name"/>
+                          <!--<field name="df_util"/>-->
+                          <!--<field name="contact_person"/>-->
+                          <!--<field name="by_hand"/>-->
+                        </group>
+                    </group>
+                       <notebook>
+                        <page string="备注">
+                                <field name="smeno"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids" widget="mail_followers"/>-->
+                    <!--<field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
+            </form>
+        </field>
+      </record>
+
+
+         <!--search视图-->
+      <record id="view_demo_contract_lx_search" model="ir.ui.view">
+            <field name="name">demo.contract.lx.select</field>
+            <field name="model">demo.contract.lx</field>
+            <field name="arch" type="xml">
+                <search string="Search Demo Contract lx">
+                    <field name="display_name"/>
+                    <field name="name"/>
+                    <!--<field name="lx_type" string="立项类别"/>-->
+                    <!--<field name="pro_name" />-->
+                    <!--<field name="df_util"/>-->
+                    <!--<field name="time" string="开始时间" filter_domain="[('time','>',self)]"/>-->
+                    <!--<field name="time" string="结束时间" filter_domain="[('time','&lt;',self)]"/>-->
+                    <!--<filter name="lx_type" string="类型" />-->
+                    <!--<group expand="0" string="Group By">-->
+                        <!--<filter string="立项编号"   domain="[]" context="{'group_by':'lx_origin'}"/>-->
+                        <!--<filter string="类别"   domain="[]" context="{'group_by':'lx_type'}"/>-->
+                         <!--<filter string="公司"   domain="[]" context="{'group_by':'display_name'}"/>-->
+                    <!--</group>-->
+                </search>
+            </field>
+      </record>
+
+        <!--action-->
+      <record id="action_demo_contract_lx" model="ir.actions.act_window" >
+         <field name="name">立项</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">demo.contract.lx</field>
+         <field name="view_mode">tree,form</field>
+      </record>
+
+
+
+    </data>
+</odoo>

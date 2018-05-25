@@ -4,19 +4,18 @@
          <record id="view_partner_form_ref" model="ir.ui.view">
             <field name="name">res.partner.form.ref</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="inherit_id" ref="base."/>
             <field name="arch" type="xml">
 
                 <xpath expr="//form/sheet/div/h1/field[@name='name']" position="after">
-                     <div class="oe_left" style="width:500px;">
-                        <div class="oe_left" style="width:50px;margin-left:0px;margin-top:5px;">
-                            <label string="简称:"/>
-                            <field name="sort_name" placeholder="例如: APPLE"/>
+                     <!--<div class="oe_left" >-->
+                        <div class="oe_left" >
+                            <field name="sort_name" placeholder="简称"/>
                         </div>
                         <!--<div class="oe_left" style="width:265px;margin-left:-20px;">-->
-                            <!--<field name="sort_name" placeholder="例如: APPLE"/>-->
+                            <!--<br/>-->
                         <!--</div>-->
-                    </div>
+                    <!--</div>-->
                 </xpath>
                   <!--添加对账单信息按钮-->
                 <!--<xpath expr="//div[@name='buttons']" position="inside">-->

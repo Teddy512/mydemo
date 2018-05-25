@@ -2,23 +2,26 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'management  menu',
-    'category': 'menu',
+    'name': '  contract manager',
+    'category': 'contract',
     'author':'teddy',
     'summary': 'Add twitter scroller snippet in website builder',
     'website': 'https://www.odoo.com/menu',
     'version': '1.0',
     'description': """
-management your os menu
+management your contract
 ========================
 
         """,
-    'depends': ['base','demo_contract'],
+    'depends': ['base'],
     'data': [
-        # 'security/ir.model.access.csv',
-        # 'data/website_twitter_data.xml',
-        # 'views/website_twitter_settings_views.xml',
-        'views/add_menu_view.xml'
+        'security/security_data.xml',
+        'security/ir.model.access.csv',
+        'views/demo_contract_lx_view.xml',
+        'views/settle_account_view.xml',
+        'views/sigining_contract_view.xml',
+        'views/pay_type_view.xml',
+
     ],
     'demo':[],
     'test':[],

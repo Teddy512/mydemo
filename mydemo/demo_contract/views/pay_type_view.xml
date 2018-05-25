@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--的菜单和视图-->
+        <record id="pay_type_form_view" model="ir.ui.view">
+            <field name="name">收付款方式</field>
+            <field name="type">form</field>
+            <field name="model">pay.type</field>
+            <field name="arch" type="xml">
+                <form string="收付款方式">
+                    <group>
+                        <field name="sequence" />
+                        <field name="name" />
+                        <!--<field name="spay_type_jc" />-->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="pay_type_tree_view" model="ir.ui.view">
+            <field name="name">收付款方式</field>
+            <field name="type">tree</field>
+            <field name="model">pay.type</field>
+            <field name="arch" type="xml">
+                <tree string="收付款方式">
+                      <field name="sequence" />
+                      <field name="name" />
+                      <!--<field name="spay_type_jc" />-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pay_type" model="ir.actions.act_window">
+            <field name="name">收付款方式</field>
+            <field name="res_model">pay.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+   </data>
+</odoo>

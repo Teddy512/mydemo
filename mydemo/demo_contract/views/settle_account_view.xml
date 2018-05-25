@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+      <!--结算页面Tree view-->
+      <record id="view_settle_account_tree" model="ir.ui.view">
+        <field name="name">settle.account.tree</field>
+        <field name="model">settle.account</field>
+        <field name="arch" type="xml">
+            <tree striing="settle account">
+                <!--<field name="jiesuan_number"/>-->
+                <!--<field name="contract_origin"/>-->
+                <field name="contract_type" string="合同类别"/>
+                <field name="jies_date"/>
+                <!--<field name="total_pay" sum="total_pay"/>-->
+                <!--<field name="total_jies" sum="total_jies"/>-->
+                <field name="note1"/>
+                <!--<field name="print_date"/>-->
+                <field name="state"/>
+            </tree>
+        </field>
+      </record>
+      <!--form view-->
+       <record id="view_settle_account_form" model="ir.ui.view">
+        <field name="name">settle.account.form</field>
+        <field name="model">settle.account</field>
+        <field name="arch" type="xml">
+            <form striing="settle account">
+                <header>
+                    <!--<button name="action_split_order_js" string="确认订单" type="object" states="draft"/>-->
+                    <!--<button name="action_cancel_order_js" string="取消订单" type="object" states="confirm"/>-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <h1>
+                    <label string="结算清单" />
+                    <field name="name" class="oe_inline" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                          <!--<field name="contract_origin" />-->
+                          <field name="contract_type" string="合同类别" />
+                          <field name="jies_date" />
+                        </group>
+                        <group>
+                          <field name="jies_account" invisible="1"/>
+                          <field name="display_name" invisible="1" />
+                          <field name="pay_account" invisible="1"/>
+                          <field name="contract_name_qd" invisible="1"/>
+                          <field name="contract_amount"  invisible="1" />
+                          <field name="df_util" invisible="1" />
+                          <field name="accumulated_pay" invisible="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="结算明细">
+                            <field name="line_id">
+                              <tree string="结算明细" editable="bottom">
+                                <!--<field name="contract_origin_line" invisible="1"/>-->
+                                <!--<field name="serial"/>-->
+                                <field name="contract_type"  invisible="1"/>
+                                <field name="jies_date_line" invisible="1"/>
+                                <field name="jies_account_line"/>
+                                <field name="pay_account_line"/>
+                                <field name="note"/>
+                              </tree>
+                            </field>
+                             <!--<group class="oe_subtotal_footer oe_right" colspan="2" name="contract_total">-->
+                                <!--<field name="total_pay" widget="monetary"  string="总支付金额"/>-->
+                                <!--<field name="total_jies" widget="monetary"  string="总结算金额"/>-->
+                             <!--</group>-->
+                            <div class="oe_clear"/>
+                         </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+      </record>
+
+         <!--search视图,结算清单-->
+      <record id="view_settle_account_search" model="ir.ui.view">
+            <field name="name">settle.account.select</field>
+            <field name="model">settle.account</field>
+            <field name="view_mode">tree,form</field>
+            <field name="arch" type="xml">
+                <search string="Search settle account">
+                    <field name="name"/>
+                    <!--<field name="contract_origin"/>-->
+                    <field name="contract_type"/>
+                    <field name="jies_date" string="开始时间" filter_domain="[('jies_date','>',self)]"/>
+                    <field name="jies_date" string="结束时间" filter_domain="[('jies_date','&lt;',self)]"/>
+                <group expand="0" string="Group By">
+                        <!--<filter string="合同编号"   domain="[]" context="{'group_by':'contract_origin'}"/>-->
+                        <filter string="合同类别"   domain="[]" context="{'group_by':'contract_type'}"/>
+                        <filter string="公司"   domain="[]" context="{'group_by':'display_name'}"/>
+                </group>
+                </search>
+            </field>
+      </record>
+
+      <!--action-->
+      <record id="action_settle_account" model="ir.actions.act_window" >
+         <field name="name">结算清单</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">settle.account</field>
+         <field name="view_mode">tree,form</field>
+      </record>
+
+
+    </data>
+</odoo>

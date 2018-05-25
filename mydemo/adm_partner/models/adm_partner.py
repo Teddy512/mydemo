@@ -9,6 +9,7 @@ class Res_partner_inh(models.Model):
        _inherit='res.partner'
        # customer=fields.Boolean(u'客户'),
        # supplier=fields.Boolean(u'供应商'),
+
        sort_name=fields.Char(string="简称")
 
 

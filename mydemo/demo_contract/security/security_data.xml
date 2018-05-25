@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--其中这一段，是文件定义组和组对菜单的访问权限-->
+    <!--Noupdate 表示，当模块升级时是否更新本条数据。-->
+    <!--对于demo 数据，通常设置成noupdate=”1”，即不更新，不指定noupdate 的话，默认值是noupdate=”0”。-->
+      <data noupdate="1">
+       <record id="model_category_contract_management" model="ir.module.category"> <!--分类总的model为固定model   id是自己取的-->
+           <field name="name">合同</field>  <!--哪个模块的分类-->
+           <field name="sequence">16</field>
+       </record>
+       <record id="group_contract_user" model="res.groups"><!--model代表你自己要限制权限的哪个文件名-->
+           <field name="name">用户</field>
+           <field name="category_id" ref="model_category_contract_management"/><!--category_id 指定此组属于哪个应用程序（模块）-->
+           <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+       </record>
+       <record id="group_contract_manager" model="res.groups">
+           <field name="name">经理</field>
+           <field name="category_id" ref="model_category_contract_management"/>
+           <field name="implied_ids" eval="[(4,ref('group_contract_user'))]"/> <!--包含-->
+           <field name="users" eval="[(4,ref('base.user_root'))]"/> <!--超级用户权限--><!--users 指定了组里面的用户，这里表示把admin用户添加到该组-->
+       </record>
+
+    </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

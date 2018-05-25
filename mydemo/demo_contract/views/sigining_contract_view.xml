@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!--合同页面 form视图-->
+      <record id="view_sigining_contract_form" model="ir.ui.view">
+        <field name="name">sigining.contract.form</field>
+        <field name="model">sigining.contract</field>
+        <field name="arch" type="xml">
+            <form striing="sigining contract">
+                <header>
+                    <!--<button name="action_split_order_ht" string="确认" type="object" states="draft"/>-->
+                    <!--<button name="action_cancel_order_ht" string="取消订单" type="object" states="confirm"/>-->
+                    <!--<button name="action_jiesuan_order" string="创建结算单" type="object" states="confirm" />-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <!--<div class="oe_right oe_button_box" name="buttons">-->
+                        <!--<button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_jiesuan_order" type="object">-->
+                            <!--<field string="结算清单" name="jiesuan_order_count" widget="statinfo" />-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <h1>
+                    <label string="合同号"/>
+                    <field name="name" class="oe_inline" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                          <field name="display_name" />
+                          <field name="contract_type" string="合同类别" />
+                          <field name="contract_name"/>
+                          <field name="contract_done" />
+                          <field name="start_contract" />
+                          <field name="end_contract"/>
+                          <field name="contract_amount"/>
+                          <field name="company_id" invisible="1" />
+                        </group>
+                        <group>
+                          <field name="accumulated_amount" />
+                          <field name="accumulated_pay"/>
+                          <field name="zbjin"/>
+                          <field name="zbdate"/>
+                          <field name="name_related"/>
+                          <field name="df_util" />
+                          <field name="year"/>
+                          <field name="lx_origin" invisible="1"/>
+                          <field name="remind" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="备注">
+                            <gourp>
+                                <field name="note"/>
+                            </gourp>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids" widget="mail_followers"/>-->
+                    <!--<field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
+            </form>
+        </field>
+      </record>
+         <!--Tree view-->
+      <record id="view_sigining_contract_tree" model="ir.ui.view">
+        <field name="name">sigining.contract.tree</field>
+        <field name="model">sigining.contract</field>
+        <field name="arch" type="xml">
+            <tree striing="sigining contract">
+                <field name="name"/>
+                <field name="contract_type" string="合同类别"/>
+                <field name="contract_name"/>
+                 <field name="display_name"/>
+                <field name="contract_done"/>
+                <field name="start_contract"/>
+                <field name="end_contract"/>
+                <field name="contract_amount" sum="contract_amount"/>
+                <field name="accumulated_amount" sum="accumulated_amount"/>
+                <field name="accumulated_pay" sum="accumulated_pay"/>
+                <field name="df_util" />
+                <field name="year"/>
+                <!--<field name="remind"/>-->
+                <field name="note"/>
+                <field name="state"/>
+            </tree>
+        </field>
+      </record>
+        
+        
+         <!--search视图-->
+      <record id="view_sigining_contract_search" model="ir.ui.view">
+            <field name="name">sigining.contract.select</field>
+            <field name="model">sigining.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search sigining_contract">
+                    <field name="contract_type" string="合同类别"/>
+                    <field name="contract_name"/>
+                    <field name="name"/>
+                    <field name="display_name"/>
+                    <field name="df_util"/>
+                    <field name="year"/>
+                    <field name="start_contract" string="开始时间" filter_domain="[('start_contract','>',self)]"/>
+                    <field name="end_contract" string="结束时间" filter_domain="[('end_contract','&lt;',self)]"/>
+                    <group expand="5" string="Group By">
+                        <filter string="公司"   domain="[]" context="{'group_by':'display_name'}"/>
+                        <filter string="合同类别"   domain="[ ]" context="{'group_by':'contract_type'}"/>
+                        <filter string="年度"   domain="[]" context="{'group_by':'year'}"/>
+                    </group>
+                </search>
+            </field>
+      </record>
+
+        <!--action-->
+      <record id="action_sigining_contract" model="ir.actions.act_window" >
+         <field name="name">合同签订</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">sigining.contract</field>
+         <field name="view_mode">tree,form</field>
+      </record>
+        
+    </data>
+</odoo>
