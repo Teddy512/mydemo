@@ -3,18 +3,18 @@
     <data>
         <!--Tree view 合同和立项共同的列表视图-->
       <record id="view_demo_contract_lx_tree" model="ir.ui.view">
-        <field name="name">demo.contract.lx.tree</field>
+        <field name="name">立项列表</field>
         <field name="model">demo.contract.lx</field>
         <field name="arch" type="xml">
-            <tree string="demo contract lx">
+            <tree >
                 <field name="name"/>
-                <!--<field name="pro_name" />-->
-                <!--<field name="lx_type" string="立项类别"/>-->
-                <!--<field name="amount"/>-->
-                <!--<field name="lx_datetime"/>-->
-                <field name="display_name"/>
-                <!--<field name="df_util"/>-->
-                <!--<field name="state"/>-->
+                <field name="pro_name" />
+                <field name="lx_type" string="立项类别"/>
+                <field name="payamount"/>
+                <field name="lx_datetime"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="state"/>
             </tree>
         </field>
       </record>
@@ -24,12 +24,12 @@
         <field name="model">demo.contract.lx</field>
         <field name="arch" type="xml">
             <form >
-                <!--<header>-->
-                    <!--<button name="action_split_order" string="确认" type="object" states="draft"/>-->
-                    <!--<button name="action_cancel_order" string="取消" type="object" states="confirm"/>-->
-                    <!--<button name="action_view_sigining_contract" string="创立合同" type="object"  states="confirm"/>-->
-                    <!--<field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>-->
-                <!--</header>-->
+                <header>
+                    <button name="action_split_order" string="确认" type="object" states="draft" />
+                    <button name="action_cancel_order" string="取消" type="object" states="confirm"/>
+                    <button name="action_view_sigining_contract" string="创立合同" type="object"  states="confirm"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
                     <!--<div class="oe_right oe_button_box" name="buttons">-->
                         <!--<button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_lx_order" type="object">-->
@@ -38,21 +38,21 @@
                     <!--</div>-->
                     <h1>
                     <label string="立项" />
-                    <field name="name" class="oe_inline" readonly="1"/>
+                    <field name="name" class="oe_inline" />
                     </h1>
                     <group>
                         <group>
-                          <!--<field name="lx_type" string="立项类别"/>-->
-                          <!--<field name="lx_datetime"/>-->
-                          <!--<field name="pro_name" />-->
-                          <!--<field name="payamount"/>-->
+                          <field name="lx_type" string="立项类别"/>
+                          <field name="lx_datetime"/>
+                          <field name="pro_name" />
+                          <field name="payamount"/>
                           <!--<field name="company_id" invisible="1"/>-->
                         </group>
                         <group>
-                          <field name="display_name"/>
-                          <!--<field name="df_util"/>-->
-                          <!--<field name="contact_person"/>-->
-                          <!--<field name="by_hand"/>-->
+                          <field name="partner_id"/>
+                          <field name="company_id"/>
+                          <field name="contact_person"/>
+                          <field name="user_person"/>
                         </group>
                     </group>
                        <notebook>
@@ -76,19 +76,19 @@
             <field name="model">demo.contract.lx</field>
             <field name="arch" type="xml">
                 <search string="Search Demo Contract lx">
-                    <field name="display_name"/>
+                    <field name="partner_id"/>
+                    <field name="company_id"/>
                     <field name="name"/>
-                    <!--<field name="lx_type" string="立项类别"/>-->
-                    <!--<field name="pro_name" />-->
-                    <!--<field name="df_util"/>-->
-                    <!--<field name="time" string="开始时间" filter_domain="[('time','>',self)]"/>-->
-                    <!--<field name="time" string="结束时间" filter_domain="[('time','&lt;',self)]"/>-->
-                    <!--<filter name="lx_type" string="类型" />-->
-                    <!--<group expand="0" string="Group By">-->
-                        <!--<filter string="立项编号"   domain="[]" context="{'group_by':'lx_origin'}"/>-->
-                        <!--<filter string="类别"   domain="[]" context="{'group_by':'lx_type'}"/>-->
-                         <!--<filter string="公司"   domain="[]" context="{'group_by':'display_name'}"/>-->
-                    <!--</group>-->
+                    <field name="lx_type" string="立项类别"/>
+                    <field name="pro_name" />
+                    <field name="date_start" string="开始时间" filter_domain="[('date_start','>',self)]"/>
+                    <field name="date_start" string="结束时间" filter_domain="[('date_start','&lt;',self)]"/>
+                    <filter name="lx_type" string="类型" />
+                    <group expand="0" string="Group By">
+                        <filter string="立项编号"   domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="类别"   domain="[]" context="{'group_by':'lx_type'}"/>
+                         <filter string="公司"   domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
                 </search>
             </field>
       </record>

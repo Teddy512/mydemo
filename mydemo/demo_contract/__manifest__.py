@@ -13,7 +13,7 @@ management your contract
 ========================
 
         """,
-    'depends': ['base'],
+    'depends': ['base','hr'],
     'data': [
         'security/security_data.xml',
         'security/ir.model.access.csv',
@@ -21,6 +21,7 @@ management your contract
         'views/settle_account_view.xml',
         'views/sigining_contract_view.xml',
         'views/pay_type_view.xml',
+        'views/seq.xml'
 
     ],
     'demo':[],

@@ -15,7 +15,7 @@ class settle_account(models.Model):
     _name = 'settle.account'
     _description = 'jie suan qingdan'
 
-    contract_origin=fields.Char(u'合同编号', readonly=True)
+    contract_origin=fields.Char(u'合同编号')
     display_name=fields.Many2one('res.partner', string=u'公司', select=True, )
     contract_name_qd=fields.Char(u'合同名称')
     name=fields.Char(u'结算单号')
@@ -117,20 +117,20 @@ class settle_account(models.Model):
     #     new_id=super(settle_account,self).create(cr,uid,vals,context=context)
     #     return new_id
     #
-    #    # 取消按钮
-    # def action_cancel_order_js(self,cr,uid,ids,context=None):
-    #     assert len(ids)==1
-    #     settle_account_obj=self.browse(cr,uid,ids,context)
-    #     settle_account_obj.state='cancel'
-    #
-    #
-    # #确认按钮
-    # def action_split_order_js(self,cr,uid,ids,context=None):
-    #     assert len(ids)==1
-    #
-    #     # 获取结算单，状态为完成的
-    #     settle_account_obj=self.browse(cr,uid,ids,context)
-    #     settle_account_obj.state='confirm'
+       # 取消按钮
+    def action_cancel_order_js(self,cr,uid,ids,context=None):
+        assert len(ids)==1
+        settle_account_obj=self.browse(cr,uid,ids,context)
+        settle_account_obj.state='cancel'
+
+
+    #确认按钮
+    def action_split_order_js(self,cr,uid,ids,context=None):
+        assert len(ids)==1
+
+        # 获取结算单，状态为完成的
+        settle_account_obj=self.browse(cr,uid,ids,context)
+        settle_account_obj.state='confirm'
     #
     #     name=settle_account_obj.contract_origin
     #
@@ -169,8 +169,8 @@ class settle_account(models.Model):
 
 # 结算明细包含的字段
 class settle_account_line(models.Model):
-    _name = 'settle.account.line'
     _description = 'jie suan qingdan  mingxi'
+    _name = 'settle.account.line'
 
     name=fields.Integer(u'流水号')
     contract_origin_line=fields.Many2one('settle.account', u'合同编号')

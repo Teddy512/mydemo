@@ -26,8 +26,8 @@
         <field name="arch" type="xml">
             <form striing="settle account">
                 <header>
-                    <!--<button name="action_split_order_js" string="确认订单" type="object" states="draft"/>-->
-                    <!--<button name="action_cancel_order_js" string="取消订单" type="object" states="confirm"/>-->
+                    <button name="action_split_order_js" string="确认订单" type="object" states="draft"/>
+                    <button name="action_cancel_order_js" string="取消订单" type="object" states="confirm"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
                 <sheet>
