@@ -12,5 +12,12 @@
         <menuitem sequence="3" name="合同结算清单" id="application_menu_action_settle_account" parent="application_contract" action="demo_contract.action_settle_account"/>
         <!--收付款方式-->
         <menuitem sequence="4" name="收付款方式" id="application_menu_pay_type" parent="application_contract" action="demo_contract.action_pay_type"/>
+
+        <!--请假模块-->
+        <menuitem name="请假" sequence="1" id="menu_leave"  parent="application"/>
+        <!-- 二级菜单 -->
+        <menuitem name="请假单" sequence="1"   id="menu_demo_leave" parent="menu_leave" action="demo_leave.action_demo_leave"/>
+
+
     </data>
 </odoo>
