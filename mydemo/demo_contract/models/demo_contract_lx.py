@@ -42,23 +42,23 @@ class demo_contract_lx(models.Model):
                                  required=True, change_default=True, index=True, track_visibility='always')
     contact_person = fields.Many2one('hr.employee', string='联系人',
                                    required=True, change_default=True, index=True, track_visibility='always')
-
+    lx_order_count=fields.Integer(complex='_get_lx_order_count',string=u'合同条数',store=True)
 
 
 
 
       # 新加地方,要记录立项的条数,通过合同号来找到
-    # def _get_lx_order_count(self, cr, uid, ids, field_name, arg, context=None):
-    #     res = dict.fromkeys(ids, 0)
-    #     try:
-    #         name=self.browse(cr,uid,ids[0],context=context).name
-    #         obj=self.pool('sigining.contract')
-    #         sigining_contract_ids=obj.search(cr,uid,[('name','=',name)])
-    #         res[ids[0]]=len(sigining_contract_ids)
-    #     except:
-    #         print u"err！"
-    #     finally:
-    #         return res
+    def _get_lx_order_count(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids, 0)
+        try:
+            name=self.browse(cr,uid,ids[0],context=context).name
+            obj=self.pool('sigining.contract')
+            sigining_contract_ids=obj.search(cr,uid,[('lx_origin','=',name)])
+            res[ids[0]]=len(sigining_contract_ids)
+        except:
+            print u"err！"
+        finally:
+            return res
 
 
 
@@ -90,6 +90,8 @@ class demo_contract_lx(models.Model):
             'default_contract_type': self.lx_type.id,
             'default_contract_amount': self.payamount,
             'default_lx_origin': self.name,
+            'default_df_util':self.partner_id.id,
+            'default_company_id':self.company_id.id,
         })
         return {
             'type': 'ir.actions.act_window',
@@ -114,7 +116,7 @@ class demo_contract_lx(models.Model):
             result = mod_obj.xmlid_to_res_id(cr, uid, 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
             result = act_obj.read(cr, uid, [result], context=context)[0]
 
-            result['domain'] = "[('name','=','" + name + "')]"
+            result['domain'] = "[('lx_origin','=','" + name + "')]"
         except:
             print u"err！"
         finally:

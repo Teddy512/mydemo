@@ -7,18 +7,23 @@
 ##############################################################################
 
 
-from odoo import fields,models,osv
+from odoo import fields,models,osv,api
 from datetime import datetime
 
 # 结算清单包含的字段
 class settle_account(models.Model):
     _name = 'settle.account'
     _description = 'jie suan qingdan'
+    WORKFLOW_STATE_SELECTION = [
+        ('draft', u'草稿'),
+        ('confirm', u'确认'),
+        ('cancel', u'取消')
+    ]
 
     contract_origin=fields.Char(u'合同编号')
     display_name=fields.Many2one('res.partner', string=u'公司', select=True, )
     contract_name_qd=fields.Char(u'合同名称')
-    name=fields.Char(u'结算单号')
+    name=fields.Char(u'结算单号',default='/')
     contract_type=fields.Many2one('pay.type', string=u'合同类别', select=True, )
     jies_date=fields.Date(u'结算日期')
     jies_account=fields.Float(u'结算金额')
@@ -33,15 +38,34 @@ class settle_account(models.Model):
     df_util=fields.Many2one('res.partner', string=u'对方单位', select=True, )
     line_id=fields.One2many('settle.account.line', 'contract_origin_line', 'Order Line', copy=True)
     note1=fields.Char(u'备注')
-    state=fields.Selection([
-        ('draft', u'草稿'),
-        ('confirm', u'确认订单'),
-        ('cancel', u'取消订单'), ]
-        , u'状态', readonly=True, copy=False, select=True)
+    state = fields.Selection(WORKFLOW_STATE_SELECTION, default='draft', string=u'状态', readonly=True)
 
 
-    #
-    #
+    # 新加的地方
+    @api.model
+    def create(self, vals):
+        # 自动生成单号，单号统一由seq.xml里面来定义管理
+        if vals.get('name', '/') == '/':
+                vals['name'] = self.env['ir.sequence'].next_by_code('demo.contract.lx') or '/'
+        new_id = super(settle_account, self).create(vals)
+        return new_id
+
+
+    @api.multi
+    def action_split_order(self):
+        self.state = 'confirm'
+        return True
+
+    @api.multi
+    def action_cancel_order(self):
+        self.state = 'cancel'
+        return True
+
+
+
+
+
+
     # #改动地方 总支付金额 求和:
     # def _get_subtotal(self, cr, uid, ids, field_name, arg,  context=None):
     #     res = {}

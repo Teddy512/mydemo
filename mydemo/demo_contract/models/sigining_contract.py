@@ -6,7 +6,7 @@
 #
 ##############################################################################
 
-
+from odoo import  api
 from odoo import fields,osv,models
 from datetime import datetime
 import odoo.addons.decimal_precision as dp
@@ -18,6 +18,12 @@ from odoo.tools.translate import _
 class sigining_contract(models.Model):
     _name = 'sigining.contract'
     _description ='he tong qianding'
+
+    WORKFLOW_STATE_SELECTION = [
+        ('draft', u'草稿'),
+        ('confirm', u'确认'),
+        ('cancel', u'取消')
+    ]
 
 
      # 新加地方,要记录结算单条数,通过合同号来找到
@@ -34,11 +40,11 @@ class sigining_contract(models.Model):
     #     finally:
     #         return res
     contract_type=fields.Many2one('pay.type', string=u'合同类别', select=True, required=True, )
-    name=fields.Char(u'合同编号')
+    name=fields.Char(u'合同编号',default='/')
     lx_origin=fields.Char(u'立项编号')
     contract_name=fields.Char(u'合同名称')
     df_util=fields.Many2one('res.partner', string=u'对方单位', select=True, )
-    display_name=fields.Many2one('res.partner', string=u'公司', select=True, required=True, )
+    display_name=fields.Many2one('res.partner', string=u'公司', select=True, )
     # 'display_name=fields.related('id','display_name',relation='res.partner',string=u'公司',select=True,),
     contract_done=fields.Date(u'合同订立')
     start_contract=fields.Date(u'合同生效')
@@ -48,18 +54,36 @@ class sigining_contract(models.Model):
     accumulated_pay=fields.Float(u'累计支付')
     zbjin=fields.Float(u'质保金')
     zbdate=fields.Integer(u'质保期限')
-    name_related=fields.Many2one('hr.employee', string=u'经办人', select=True, )
+    name_related=fields.Many2one('res.users', string=u'经办人', select=True, )
     year=fields.Date(u'年度')
     remind=fields.Char(u'提醒天数')
     note=fields.Text(u'备注')
     discount=fields.Float(u'未结算')
     # 'jiesuan_order_count=fields.function(_get_jiesuan_order_count,string='结算清单'),
-    state=fields.Selection([
-        ('draft', u'草稿'),
-        ('confirm', u'确认订单'),
-        ('cancel', u'取消订单'), ]
-        , u'状态', readonly=True, copy=False, select=True)
+    state = fields.Selection(WORKFLOW_STATE_SELECTION, default='draft', string=u'状态', readonly=True)
     company_id=fields.Many2one('res.company', string=u'公司', select=True, )
+
+
+    @api.model
+    def create(self,vals):
+        if vals.get('name','/')=='/':
+            vals['name']=self.env['ir.sequence'].next_by_code('sigining.contract') or '/'
+        new_id=super(sigining_contract,self).create(vals)
+        return new_id
+
+    @api.multi
+    def action_split_order(self):
+        self.state = 'confirm'
+        return True
+
+    @api.multi
+    def action_cancel_order(self):
+        self.state = 'cancel'
+        return True
+
+
+
+
 
     # 新加的地方
     # def create(self, cr, uid, vals, context=None):

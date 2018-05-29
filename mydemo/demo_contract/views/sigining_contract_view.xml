@@ -8,8 +8,8 @@
         <field name="arch" type="xml">
             <form striing="sigining contract">
                 <header>
-                    <!--<button name="action_split_order_ht" string="确认" type="object" states="draft"/>-->
-                    <!--<button name="action_cancel_order_ht" string="取消订单" type="object" states="confirm"/>-->
+                    <button name="action_split_order" string="确认" type="object" states="draft"/>
+                    <button name="action_cancel_order" string="取消订单" type="object" states="confirm"/>
                     <!--<button name="action_jiesuan_order" string="创建结算单" type="object" states="confirm" />-->
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
@@ -25,14 +25,14 @@
                     </h1>
                     <group>
                         <group>
-                          <field name="display_name" />
+                          <!--<field name="display_name" />-->
                           <field name="contract_type" string="合同类别" />
                           <field name="contract_name"/>
                           <field name="contract_done" />
                           <field name="start_contract" />
                           <field name="end_contract"/>
                           <field name="contract_amount"/>
-                          <field name="company_id" invisible="1" />
+                          <field name="company_id"  />
                         </group>
                         <group>
                           <field name="accumulated_amount" />
@@ -42,7 +42,7 @@
                           <field name="name_related"/>
                           <field name="df_util" />
                           <field name="year"/>
-                          <field name="lx_origin" invisible="1"/>
+                          <field name="lx_origin" />
                           <field name="remind" invisible="1"/>
                         </group>
                     </group>

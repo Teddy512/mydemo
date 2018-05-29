@@ -73,6 +73,18 @@ body, html {
 	text-align: center;
 }
 
+
+.o_database_list {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 50px;
+    border: 1px solid #a92121;
+    border-radius: 5px;
+    float: none;
+    background-color: #56414d;
+    opacity: 0.9;
+}
+
 .o_database_list select option {
 	background-color: #95A5A6;
 }
