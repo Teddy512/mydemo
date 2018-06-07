@@ -108,37 +108,6 @@ class demo_contract_lx(models.Model):
             'target': 'current',
             'context': ctx,
         }
-
-      ###############链接到hetong页面tree视图
-    def action_open_lx_order(self):
-        try:
-            act_obj = self.env['ir.actions.act_window']
-            mod_obj = self.env['ir.model.data']
-            name= self.name
-            print name
-            print 666666
-            result = mod_obj.xmlid_to_res_id( 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
-            result = act_obj.read( [result])[0]
-            result['domain'] = "[('lx_origin','=','" + name + "')]"
-        except:
-            print u"err！"
-        finally:
-            return result
-
-    # def action_open_lx_order(self, cr, uid, ids, context=None):
-    #     try:
-    #         act_obj = self.pool.get('ir.actions.act_window')
-    #         mod_obj = self.pool.get('ir.model.data')
-    #         obj=self.browse(cr,uid,ids[0],context=context)
-    #         lx_origin=obj.lx_origin
-    #         result = mod_obj.xmlid_to_res_id(cr, uid, 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
-    #         result = act_obj.read(cr, uid, [result], context=context)[0]
-    #         result['domain'] = "[('lx_origin','=','" + lx_origin + "')]"
-    #     except:
-    #         print u"err！"
-    #     finally:
-    #         return result
-
     @api.multi
     def action_split_order(self):
         self.state = 'confirm'

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
+
       <!--结算页面Tree view-->
       <record id="view_settle_account_tree" model="ir.ui.view">
         <field name="name">settle.account.tree</field>
@@ -37,7 +38,7 @@
                     </h1>
                     <group>
                         <group>
-                          <!--<field name="contract_origin" />-->
+                          <field name="contract_origin" />
                           <field name="contract_type" string="合同类别" />
                           <field name="jies_date" />
                         </group>
@@ -66,7 +67,7 @@
                             </field>
                              <group class="oe_subtotal_footer oe_right" colspan="2" name="contract_total">
                                 <field name="total_money" widget="monetary"  string="总支付金额"/>
-                                <!--<field name="total_jies" widget="monetary"  string="总结算金额"/>-->
+                                <field name="total_jies" widget="monetary"  string="总结算金额"/>
                              </group>
                             <div class="oe_clear"/>
                          </page>

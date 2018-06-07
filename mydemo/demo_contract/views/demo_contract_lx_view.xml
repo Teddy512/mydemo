@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+         <!--###############链接到hetong页面tree视图-->
+      <record id="action_open_lx_order" model="ir.actions.act_window">
+            <field name="name">lx and contract</field>
+            <field name="res_model">sigining.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="domain">[('product_ids.product_tmpl_id', '=', active_id)]</field>-->
+            <!--<field name="context">{'default_product_tmpl_id': active_id}</field>-->
+      </record>
         <!--Tree view 合同和立项共同的列表视图-->
       <record id="view_demo_contract_lx_tree" model="ir.ui.view">
         <field name="name">立项列表</field>
@@ -32,7 +41,7 @@
                 </header>
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">
-                        <button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_lx_order" type="action">
+                        <button  class="oe_inline oe_stat_button" icon="fa-list" name="%(action_open_lx_order)d"  type="action">
                             <field string="合同单" name="lx_order_count" widget="statinfo" />
                         </button>
                     </div>

@@ -20,12 +20,19 @@ class settle_account(models.Model):
         ('cancel', u'取消')
     ]
 
+   # 汇总明细行的支付金额
     @api.depends('line_id.pay_account_line')
     def _get_money_total(self):
         for record in self:
             record.total_money = sum(line.pay_account_line for line in record.line_id)
 
-    contract_origin=fields.Char(u'合同编号')
+    # 汇总明细行的结算金额
+    @api.depends('line_id.jies_account_line')
+    def _get_jie_total(self):
+        for record in self:
+            record.total_jies = sum(line.jies_account_line for line in record.line_id)
+
+    contract_origin=fields.Many2one('sigining.contract',u'合同编号')
     display_name=fields.Many2one('res.partner', string=u'公司', select=True, )
     contract_name_qd=fields.Char(u'合同名称')
     name=fields.Char(u'结算单号',default='/')
@@ -45,7 +52,7 @@ class settle_account(models.Model):
     note1=fields.Char(u'备注')
     state = fields.Selection(WORKFLOW_STATE_SELECTION, default='draft', string=u'状态', readonly=True)
     total_money=fields.Float(compute='_get_money_total',store=True, readonly=True)
-
+    total_jies=fields.Float(compute='_get_jie_total',store=True, readonly=True)
 
     # 新加的地方
     @api.model

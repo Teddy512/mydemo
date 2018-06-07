@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+       <record id="action_open_jiesuan_order" model="ir.actions.act_window">
+            <field name="name">settle and account</field>
+            <field name="res_model">settle.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('contract_origin', '=', active_id)]</field>
+            <field name="context">{'default_contract_origin': active_id}</field>
+      </record>
        <!--合同页面 form视图-->
       <record id="view_sigining_contract_form" model="ir.ui.view">
         <field name="name">sigining.contract.form</field>
@@ -11,14 +19,14 @@
                     <button name="action_split_order" string="确认" type="object" states="draft"/>
                     <button name="action_cancel_order" string="取消订单" type="object" states="confirm"/>
                     <!--<button name="action_jiesuan_order" string="创建结算单" type="object" states="confirm" />-->
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <!--<div class="oe_right oe_button_box" name="buttons">-->
-                        <!--<button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_jiesuan_order" type="object">-->
-                            <!--<field string="结算清单" name="jiesuan_order_count" widget="statinfo" />-->
-                        <!--</button>-->
-                    <!--</div>-->
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button  class="oe_inline oe_stat_button" icon="fa-list" name="%(action_open_jiesuan_order)d" type="action">
+                            <field string="结算清单" name="settle_order_count" widget="statinfo" />
+                        </button>
+                    </div>
                     <h1>
                     <label string="合同号"/>
                     <field name="name" class="oe_inline" readonly="1"/>

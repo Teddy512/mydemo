@@ -62,6 +62,17 @@ class sigining_contract(models.Model):
     # 'jiesuan_order_count=fields.function(_get_jiesuan_order_count,string='结算清单'),
     state = fields.Selection(WORKFLOW_STATE_SELECTION, default='draft', string=u'状态', readonly=True)
     company_id=fields.Many2one('res.company', string=u'公司', select=True, )
+    settle_order_count = fields.Integer(compute='_get_settle_order_count', string=u'结算单条数')
+
+    @api.model
+    def _get_settle_order_count(self):
+        id = self.ids[0]
+        obj=self.pool('sigining.contract')
+        contr_siging_obj = self.env['settle.account']
+        # 找到此合同对应的预算单
+        set_contract_ids = contr_siging_obj.search([('contract_origin', 'like', id)])
+        self.settle_order_count = len(set_contract_ids)
+
 
 
     @api.model
