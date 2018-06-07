@@ -26,6 +26,18 @@ class demo_contract_lx(models.Model):
         ('cancel', u'取消')
     ]
 
+
+
+
+    # def _compute_can_validate(self):
+    #     user_is_admin = self.env.user._is_admin()
+    #     user_is_network_manager = self.user_has_groups('stock.group_stock_network_manager')
+    #     owned_locations = []
+    #     if user_is_network_manager:
+    #         owned_locations = self.env['stock.location'].search([('user_ids', 'in', self.env.user.id),
+    #                                                              ('type_id.code', '=', 'network'
+
+
     name = fields.Char(u'立项编号',default='/',)
     sequence = fields.Integer(u'自动流水号')
     lx_type = fields.Many2one('pay.type', string=u'类别', select=True, )
@@ -42,25 +54,7 @@ class demo_contract_lx(models.Model):
                                  required=True, change_default=True, index=True, track_visibility='always')
     contact_person = fields.Many2one('hr.employee', string='联系人',
                                    required=True, change_default=True, index=True, track_visibility='always')
-    lx_order_count=fields.Integer(complex='_get_lx_order_count',string=u'合同条数',store=True)
-
-
-
-
-      # 新加地方,要记录立项的条数,通过合同号来找到
-    def _get_lx_order_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids, 0)
-        try:
-            name=self.browse(cr,uid,ids[0],context=context).name
-            obj=self.pool('sigining.contract')
-            sigining_contract_ids=obj.search(cr,uid,[('lx_origin','=',name)])
-            res[ids[0]]=len(sigining_contract_ids)
-        except:
-            print u"err！"
-        finally:
-            return res
-
-
+    lx_order_count=fields.Integer(compute='_get_lx_order_count',string=u'合同条数')
 
 
 
@@ -73,6 +67,17 @@ class demo_contract_lx(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('demo.contract.lx') or '/'
         new_id = super(demo_contract_lx, self).create(vals)
         return new_id
+
+
+    # 新加地方,要记录立项的条数,通过合同号来找到
+    @api.model
+    def _get_lx_order_count(self):
+        name = self.name
+        # obj=self.pool('sigining.contract')
+        contr_siging_obj = self.env['sigining.contract']
+        #找到此合同对应的预算单
+        sigining_contract_ids = contr_siging_obj.search([('lx_origin', 'like', name)])
+        self.lx_order_count = len(sigining_contract_ids)
 
     # 跳转到合同页面，并带数据到合同页面
     @api.multi
@@ -103,24 +108,36 @@ class demo_contract_lx(models.Model):
             'target': 'current',
             'context': ctx,
         }
-    #
-    #
-    #
-      ###############链接到hetong页面tree视图
-    def action_open_lx_order(self, cr, uid, ids, context=None):
-        try:
-            act_obj = self.pool.get('ir.actions.act_window')
-            mod_obj = self.pool.get('ir.model.data')
-            obj=self.browse(cr,uid,ids[0],context=context)
-            name=obj.name
-            result = mod_obj.xmlid_to_res_id(cr, uid, 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
-            result = act_obj.read(cr, uid, [result], context=context)[0]
 
+      ###############链接到hetong页面tree视图
+    def action_open_lx_order(self):
+        try:
+            act_obj = self.env['ir.actions.act_window']
+            mod_obj = self.env['ir.model.data']
+            name= self.name
+            print name
+            print 666666
+            result = mod_obj.xmlid_to_res_id( 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
+            result = act_obj.read( [result])[0]
             result['domain'] = "[('lx_origin','=','" + name + "')]"
         except:
             print u"err！"
         finally:
             return result
+
+    # def action_open_lx_order(self, cr, uid, ids, context=None):
+    #     try:
+    #         act_obj = self.pool.get('ir.actions.act_window')
+    #         mod_obj = self.pool.get('ir.model.data')
+    #         obj=self.browse(cr,uid,ids[0],context=context)
+    #         lx_origin=obj.lx_origin
+    #         result = mod_obj.xmlid_to_res_id(cr, uid, 'demo_contract.action_sigining_contract',raise_if_not_found=True) #查找出动作的ID
+    #         result = act_obj.read(cr, uid, [result], context=context)[0]
+    #         result['domain'] = "[('lx_origin','=','" + lx_origin + "')]"
+    #     except:
+    #         print u"err！"
+    #     finally:
+    #         return result
 
     @api.multi
     def action_split_order(self):

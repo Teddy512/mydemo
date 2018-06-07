@@ -32,7 +32,7 @@
                 </header>
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">
-                        <button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_lx_order" type="object">
+                        <button  class="oe_inline oe_stat_button" icon="fa-list" name="action_open_lx_order" type="action">
                             <field string="合同单" name="lx_order_count" widget="statinfo" />
                         </button>
                     </div>

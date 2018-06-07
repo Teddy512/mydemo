@@ -20,6 +20,11 @@ class settle_account(models.Model):
         ('cancel', u'取消')
     ]
 
+    @api.depends('line_id.pay_account_line')
+    def _get_money_total(self):
+        for record in self:
+            record.total_money = sum(line.pay_account_line for line in record.line_id)
+
     contract_origin=fields.Char(u'合同编号')
     display_name=fields.Many2one('res.partner', string=u'公司', select=True, )
     contract_name_qd=fields.Char(u'合同名称')
@@ -39,6 +44,7 @@ class settle_account(models.Model):
     line_id=fields.One2many('settle.account.line', 'contract_origin_line', 'Order Line', copy=True)
     note1=fields.Char(u'备注')
     state = fields.Selection(WORKFLOW_STATE_SELECTION, default='draft', string=u'状态', readonly=True)
+    total_money=fields.Float(compute='_get_money_total',store=True, readonly=True)
 
 
     # 新加的地方
@@ -49,6 +55,22 @@ class settle_account(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('demo.contract.lx') or '/'
         new_id = super(settle_account, self).create(vals)
         return new_id
+
+    # @api.model
+    # def _get_money_total(self):
+    #     for order in self:
+    #         total_money=0.0
+    #         for line in self.line_id:
+    #             sum+=line.pay_account_line
+    #
+    #     order.update({
+    #         'total_money':sum,
+    #     })
+
+
+
+
+
 
 
     @api.multi

@@ -64,10 +64,10 @@
                                 <field name="note"/>
                               </tree>
                             </field>
-                             <!--<group class="oe_subtotal_footer oe_right" colspan="2" name="contract_total">-->
-                                <!--<field name="total_pay" widget="monetary"  string="总支付金额"/>-->
+                             <group class="oe_subtotal_footer oe_right" colspan="2" name="contract_total">
+                                <field name="total_money" widget="monetary"  string="总支付金额"/>
                                 <!--<field name="total_jies" widget="monetary"  string="总结算金额"/>-->
-                             <!--</group>-->
+                             </group>
                             <div class="oe_clear"/>
                          </page>
                     </notebook>
